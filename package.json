@@ -1,0 +1,22 @@
+{
+  "name": "accuweather",
+  "version": "1.0.0",
+  "description": "AccuWeather API Gateway",
+  "main": "index.js",
+  "dependencies": {
+    "axios": "^0.19.1",
+    "lodash": "^4.17.15",
+    "moment-timezone": "^0.5.27",
+    "querystring": "^0.2.0",
+    "tencentcloud-sdk-nodejs": "^3.0.115"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "accuweather"
+  ],
+  "author": "Larify",
+  "license": "MIT"
+}

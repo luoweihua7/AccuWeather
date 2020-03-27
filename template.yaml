@@ -1,0 +1,24 @@
+Resources:
+  default:
+    AccuWeather:
+      Properties:
+        CodeUri: .
+        Description: AccuWeather天气接口
+        Environment:
+          Variables:
+            ALERTS: ''
+        Events:
+          WeatherNotify:
+            Properties:
+              CronExpression: 0 */5 * * * * *
+              Enable: true
+            Type: Timer
+        Handler: index.main_handler
+        MemorySize: 128
+        Runtime: Nodejs8.9
+        Timeout: 5
+        VpcConfig:
+          SubnetId: ''
+          VpcId: ''
+      Type: TencentCloud::Serverless::Function
+    Type: TencentCloud::Serverless::Namespace
