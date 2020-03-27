@@ -39,12 +39,14 @@ const sendWeatherAlert = async () => {
   let alerts = []
   if (fresh.length > 0) {
     fresh.forEach(async ({ id, summary }) => {
-      if (!lastIdList.includes(id) && lastSummaryList.includes(summary)) {
+      if (!lastIdList.includes(id) && !lastSummaryList.includes(summary)) {
         // 未包含已经通知过的AlertID，以及预警信息文本也没有通知过
         // 注：这里AccuWeather返回的预警信息中，会出现预警文本Summary相同，而AlertID会不同
 
         await ifttt.send(summary)
-        console.log(`已发送IFTTT通知预警：`, summary)
+        console.log(`已发送IFTTT通知预警${id}：${summary}`)
+      } else {
+        console.log(`过滤已通知预警${id}：${summary}`)
       }
 
       alerts.push({ id, summary })
