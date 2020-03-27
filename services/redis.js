@@ -14,7 +14,7 @@ class RedisStore {
 
     if (list && list.length > 0) {
       try {
-        list.forEach((item) => JSON.stringify(item))
+        list = list.map((item) => JSON.parse(item))
       } catch (e) {
         console.error(`从Redis中获取数据后转换失败`, e.message)
         list = []

@@ -90,7 +90,7 @@ module.exports = class AccuWeatherService {
         .map((alert) => {
           return {
             id: Number(alert.AlertID), // 告警ID
-            summary: alert.Summary, // 告警信息
+            summary: alert.Area && alert.Area[0] && alert.Area[0].Text, // 告警信息
             level: alert.Level, // 告警等级，一般为红色，橙色等几种
             source: alert.Source, // 来源
           }

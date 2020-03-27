@@ -24,33 +24,35 @@ const sendWeatherReport = async () => {
 }
 
 const sendWeatherAlert = async () => {
-  let [last = [], fresh = []] = await Promise.all([store.getAlerts(), weather.alerts()])
+  let [sentList = [], freshList = []] = await Promise.all([store.getAlerts(), weather.alerts()])
 
   // 处理过的数据
-  let lastIdList = []
-  let lastSummaryList = []
+  let sentIdList = []
+  let sentSummaryList = []
 
-  last.forEach(({ id, summary }) => {
-    lastIdList.push(Number(id))
-    lastSummaryList.push(summary)
+  sentList.forEach(({ id, summary }) => {
+    sentIdList.push(Number(id))
+    sentSummaryList.push(summary)
   })
 
   // 逐条判断预警是否已发送，并发送未预警的通知
   let alerts = []
-  if (fresh.length > 0) {
-    fresh.forEach(async ({ id, summary }) => {
-      if (!lastIdList.includes(id) && !lastSummaryList.includes(summary)) {
+  if (freshList.length > 0) {
+    let promises = freshList.map(({ id, summary }) => {
+      alerts.push({ id, summary })
+
+      if (!sentIdList.includes(id) && !sentSummaryList.includes(summary)) {
         // 未包含已经通知过的AlertID，以及预警信息文本也没有通知过
         // 注：这里AccuWeather返回的预警信息中，会出现预警文本Summary相同，而AlertID会不同
-
-        await ifttt.send(summary)
-        console.log(`已发送IFTTT通知预警${id}：${summary}`)
+        console.log(id, summary)
+        return ifttt.send(summary)
       } else {
         console.log(`过滤已通知预警${id}：${summary}`)
+        return Promise.resolve()
       }
-
-      alerts.push({ id, summary })
     })
+
+    await Promise.all(promises)
   } else {
     console.log(`没有新的天气预警信息`)
   }
