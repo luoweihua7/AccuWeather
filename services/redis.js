@@ -31,10 +31,11 @@ class RedisStore {
 
     let list = alerts.map((item) => JSON.stringify(item))
 
-    await this.redis.ltrim(this._key, 1, 0) // 清理旧数据，
-    let ret = await this.redis.rpush(this._key, list) // 保存新数据
+    await this.redis.ltrim(this._key, 1, 0) // 清理旧数据
 
-    return ret
+    if (list.length > 0) {
+      await this.redis.rpush(this._key, list) // 保存新数据
+    }
   }
 
   async quit() {
