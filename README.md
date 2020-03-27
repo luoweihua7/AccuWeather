@@ -1,5 +1,5 @@
 # AccuWeather 天气通知
-Tencent Serverless下的天气通知服务，通过AccuWeather的天气接口（AccuWeather使用的是中国天气通的数据源）<br>
+[Tencent Serverless](https://console.cloud.tencent.com/scf) 下的天气通知服务，通过AccuWeather的天气接口（AccuWeather使用的是中国天气通的数据源）<br>
 定时通过IFTTT通知天气信息，在有预警时随时下发通知预警
 
 # 说明
