@@ -1,6 +1,6 @@
 Resources:
   default:
-    AccuWeatherServerless:
+    AccuWeather:
       Properties:
         CodeUri: .
         Description: AccuWeather天气接口
